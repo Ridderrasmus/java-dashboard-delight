@@ -31,9 +31,16 @@ export default {
 					dark: '#8D7B68',  // Dark brown
 					darker: '#634832', // Espresso
 				},
+				purple: {
+					light: '#9b87f5',  // Light purple
+					medium: '#7E69AB', // Medium purple
+					dark: '#6E59A5',   // Dark purple
+					darker: '#1A1F2C', // Very dark purple/carbon
+				},
 				accent: {
 					blue: '#5F9DF7',
 					orange: '#FF9F45',
+					purple: '#9b87f5',
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
@@ -101,14 +108,24 @@ export default {
                 'slide-in': {
                     '0%': { transform: 'translateY(10px)', opacity: '0' },
                     '100%': { transform: 'translateY(0)', opacity: '1' }
+                },
+                'glow': {
+                    '0%': { boxShadow: '0 0 10px rgba(155, 135, 245, 0.5)' },
+                    '50%': { boxShadow: '0 0 20px rgba(155, 135, 245, 0.8)' },
+                    '100%': { boxShadow: '0 0 10px rgba(155, 135, 245, 0.5)' }
                 }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
                 'fade-in': 'fade-in 0.5s ease-out',
-                'slide-in': 'slide-in 0.5s ease-out'
-			}
+                'slide-in': 'slide-in 0.5s ease-out',
+                'glow': 'glow 2s infinite'
+			},
+            backgroundImage: {
+                'purple-gradient': 'linear-gradient(135deg, #1A1F2C 0%, #403E43 100%)',
+                'purple-gradient-light': 'linear-gradient(135deg, #9b87f5 0%, #6E59A5 100%)',
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

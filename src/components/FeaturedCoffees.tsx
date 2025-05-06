@@ -37,11 +37,11 @@ const FEATURED_COFFEES = [
 
 const FeaturedCoffees = () => {
   return (
-    <section className="py-12 px-4">
+    <section className="py-12 px-4 bg-purple-darker/80">
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold text-coffee-darker">Most Popular Coffees</h2>
-          <Button variant="ghost" className="flex items-center text-coffee-dark gap-1">
+          <h2 className="text-2xl font-bold text-gradient">Most Popular Coffees</h2>
+          <Button variant="ghost" className="flex items-center text-gray-300 hover:text-purple-light gap-1">
             See All <ChevronRight size={16} />
           </Button>
         </div>

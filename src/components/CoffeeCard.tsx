@@ -13,7 +13,7 @@ interface CoffeeCardProps {
 
 const CoffeeCard = ({ name, description, timesOrdered, imageUrl }: CoffeeCardProps) => {
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg animate-fade-in">
+    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg animate-fade-in glass-card">
       <div className="h-40 overflow-hidden">
         <img 
           src={imageUrl} 
@@ -23,16 +23,16 @@ const CoffeeCard = ({ name, description, timesOrdered, imageUrl }: CoffeeCardPro
       </div>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg flex items-center gap-2">
-          <Coffee size={18} className="text-coffee-darker" />
+          <Coffee size={18} className="text-purple-light" />
           {name}
         </CardTitle>
       </CardHeader>
       <CardContent className="pb-2">
-        <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
-        <p className="text-xs mt-2 text-coffee-dark">Ordered {timesOrdered} times</p>
+        <p className="text-sm text-gray-400 line-clamp-2">{description}</p>
+        <p className="text-xs mt-2 text-purple-light">Ordered {timesOrdered} times</p>
       </CardContent>
       <CardFooter>
-        <Button className="w-full bg-coffee-dark hover:bg-coffee-darker">
+        <Button className="w-full bg-purple-medium hover:bg-purple-light">
           Order Now
         </Button>
       </CardFooter>

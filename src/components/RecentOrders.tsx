@@ -26,26 +26,26 @@ const RECENT_ORDERS = [
 
 const RecentOrders = () => {
   return (
-    <section className="py-12 bg-coffee-light/30">
+    <section className="py-12 bg-black/30 backdrop-blur-sm">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-coffee-darker mb-6">Your Recent Orders</h2>
+        <h2 className="text-2xl font-bold text-gradient mb-6">Your Recent Orders</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {RECENT_ORDERS.map((order) => (
-            <Card key={order.id} className="animate-slide-in">
+            <Card key={order.id} className="animate-slide-in glass-card">
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg flex justify-between">
                   <span className="flex items-center gap-2">
-                    <Coffee size={18} className="text-coffee-dark" />
+                    <Coffee size={18} className="text-purple-light" />
                     {order.name}
                   </span>
-                  <span className="text-sm bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
+                  <span className="text-sm bg-purple-light/10 border border-purple-light/20 text-purple-light px-2 py-0.5 rounded-full">
                     {order.status}
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground">{order.date}</p>
+                <p className="text-sm text-gray-400">{order.date}</p>
               </CardContent>
             </Card>
           ))}

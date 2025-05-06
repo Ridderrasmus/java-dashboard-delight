@@ -6,32 +6,32 @@ import { User, Coffee, ChartBar, Edit } from 'lucide-react';
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md py-4 sticky top-0 z-10">
+    <nav className="bg-purple-darker border-b border-white/10 backdrop-blur-sm py-4 sticky top-0 z-10">
       <div className="container mx-auto flex justify-between items-center px-4">
         <Link to="/" className="flex items-center gap-2">
-          <Coffee className="h-6 w-6 text-coffee-darker" />
-          <span className="font-bold text-xl text-coffee-darker">BrewDash</span>
+          <Coffee className="h-6 w-6 text-purple-light" />
+          <span className="font-bold text-xl text-gradient">BrewDash</span>
         </Link>
         
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-coffee-dark hover:text-coffee-darker transition-colors">
+          <Link to="/" className="text-gray-300 hover:text-purple-light transition-colors">
             Home
           </Link>
-          <Link to="/statistics" className="text-coffee-dark hover:text-coffee-darker transition-colors">
+          <Link to="/statistics" className="text-gray-300 hover:text-purple-light transition-colors">
             Statistics
           </Link>
-          <Link to="/create-recipe" className="text-coffee-dark hover:text-coffee-darker transition-colors">
+          <Link to="/create-recipe" className="text-gray-300 hover:text-purple-light transition-colors">
             Create Recipe
           </Link>
         </div>
         
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon" asChild className="hover:bg-white/5">
             <Link to="/account">
-              <User className="h-5 w-5 text-coffee-dark" />
+              <User className="h-5 w-5 text-purple-light" />
             </Link>
           </Button>
-          <Button className="bg-coffee-dark hover:bg-coffee-darker text-white">
+          <Button className="bg-purple-medium hover:bg-purple-light text-white">
             Login
           </Button>
         </div>

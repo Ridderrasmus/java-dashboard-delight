@@ -25,7 +25,7 @@ const App = () => (
           <Route path="/statistics" element={
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-grow">
+              <main className="flex-grow pt-24"> {/* Added padding-top here */}
                 <Statistics />
               </main>
               <Footer />
@@ -34,7 +34,7 @@ const App = () => (
           <Route path="/create-recipe" element={
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-grow">
+              <main className="flex-grow pt-24"> {/* Added padding-top here */}
                 <CreateRecipe />
               </main>
               <Footer />
@@ -43,7 +43,7 @@ const App = () => (
           <Route path="/account" element={
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-grow">
+              <main className="flex-grow pt-24"> {/* Added padding-top here */}
                 <Account />
               </main>
               <Footer />

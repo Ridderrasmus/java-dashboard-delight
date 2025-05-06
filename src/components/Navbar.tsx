@@ -6,7 +6,7 @@ import { User, Coffee, ChartBar, Edit } from 'lucide-react';
 
 const Navbar = () => {
   return (
-    <nav className="bg-purple-darker border-b border-white/10 backdrop-blur-sm py-4 sticky top-0 z-10">
+    <nav className="bg-purple-darker border-b border-white/10 backdrop-blur-sm py-4 fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex justify-between items-center px-4">
         <Link to="/" className="flex items-center gap-2">
           <Coffee className="h-6 w-6 text-purple-light" />

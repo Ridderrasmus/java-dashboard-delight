@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-purple-darker">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow pt-24"> {/* Added padding-top to account for fixed navbar */}
         <HeroSection />
         <FeaturedCoffees />
         <RecentOrders />

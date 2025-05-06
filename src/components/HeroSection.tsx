@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-gradient-to-r from-purple-darker to-purple-dark text-white">
+    <section className="relative bg-gradient-to-r from-purple-darker to-purple-dark text-white -mt-24 pt-24">
       <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center"></div>
       <div className="absolute inset-0 bg-purple-gradient-light opacity-10"></div>
       <div className="container mx-auto px-4 py-20 relative z-10">

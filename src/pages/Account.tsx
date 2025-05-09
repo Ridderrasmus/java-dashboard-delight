@@ -10,54 +10,54 @@ import { User, Settings, Coffee } from 'lucide-react';
 const Account = () => {
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-coffee-darker mb-8 flex items-center gap-3">
-        <User className="h-8 w-8" />
+      <h1 className="text-3xl font-bold text-gradient mb-8 flex items-center gap-3">
+        <User className="h-8 w-8 text-purple-light" />
         My Account
       </h1>
       
       <div className="max-w-4xl mx-auto">
         <Tabs defaultValue="profile">
-          <TabsList className="mb-6">
-            <TabsTrigger value="profile" className="flex items-center gap-2">
+          <TabsList className="mb-6 bg-white/5 border border-white/10">
+            <TabsTrigger value="profile" className="flex items-center gap-2 data-[state=active]:bg-purple-light data-[state=active]:text-white">
               <User size={16} />
               Profile
             </TabsTrigger>
-            <TabsTrigger value="preferences" className="flex items-center gap-2">
+            <TabsTrigger value="preferences" className="flex items-center gap-2 data-[state=active]:bg-purple-light data-[state=active]:text-white">
               <Coffee size={16} />
               Coffee Preferences
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center gap-2">
+            <TabsTrigger value="settings" className="flex items-center gap-2 data-[state=active]:bg-purple-light data-[state=active]:text-white">
               <Settings size={16} />
               Settings
             </TabsTrigger>
           </TabsList>
           
           <TabsContent value="profile">
-            <Card>
+            <Card className="glass-card">
               <CardHeader>
-                <CardTitle>Personal Information</CardTitle>
+                <CardTitle className="text-gradient">Personal Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="first-name">First Name</Label>
-                    <Input id="first-name" defaultValue="John" />
+                    <Input id="first-name" defaultValue="John" className="bg-white/5 border-white/10 focus:border-purple-light" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="last-name">Last Name</Label>
-                    <Input id="last-name" defaultValue="Doe" />
+                    <Input id="last-name" defaultValue="Doe" className="bg-white/5 border-white/10 focus:border-purple-light" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" defaultValue="john.doe@example.com" type="email" />
+                    <Input id="email" defaultValue="john.doe@example.com" type="email" className="bg-white/5 border-white/10 focus:border-purple-light" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" defaultValue="+1 (555) 123-4567" />
+                    <Input id="phone" defaultValue="+1 (555) 123-4567" className="bg-white/5 border-white/10 focus:border-purple-light" />
                   </div>
                 </div>
                 
-                <Button className="mt-4 bg-coffee-dark hover:bg-coffee-darker">
+                <Button className="mt-4 bg-purple-medium hover:bg-purple-light">
                   Update Profile
                 </Button>
               </CardContent>
@@ -65,9 +65,9 @@ const Account = () => {
           </TabsContent>
           
           <TabsContent value="preferences">
-            <Card>
+            <Card className="glass-card">
               <CardHeader>
-                <CardTitle>Coffee Preferences</CardTitle>
+                <CardTitle className="text-gradient">Coffee Preferences</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
@@ -82,7 +82,7 @@ const Account = () => {
                         <Button 
                           key={strength} 
                           variant={strength === 'Medium' ? 'default' : 'outline'}
-                          className={strength === 'Medium' ? 'bg-coffee-dark hover:bg-coffee-darker' : ''}
+                          className={strength === 'Medium' ? 'bg-purple-light hover:bg-purple-medium' : 'border-white/10 hover:bg-white/5'}
                         >
                           {strength}
                         </Button>
@@ -97,7 +97,7 @@ const Account = () => {
                         <Button 
                           key={milk} 
                           variant={milk === 'Regular' ? 'default' : 'outline'}
-                          className={milk === 'Regular' ? 'bg-coffee-dark hover:bg-coffee-darker' : ''}
+                          className={milk === 'Regular' ? 'bg-purple-light hover:bg-purple-medium' : 'border-white/10 hover:bg-white/5'}
                         >
                           {milk}
                         </Button>
@@ -105,7 +105,7 @@ const Account = () => {
                     </div>
                   </div>
                   
-                  <Button className="mt-4 bg-coffee-dark hover:bg-coffee-darker">
+                  <Button className="mt-4 bg-purple-medium hover:bg-purple-light">
                     Save Preferences
                   </Button>
                 </div>
@@ -114,9 +114,9 @@ const Account = () => {
           </TabsContent>
           
           <TabsContent value="settings">
-            <Card>
+            <Card className="glass-card">
               <CardHeader>
-                <CardTitle>Account Settings</CardTitle>
+                <CardTitle className="text-gradient">Account Settings</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">
@@ -126,19 +126,19 @@ const Account = () => {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="password">Change Password</Label>
-                    <Input id="password" type="password" placeholder="New password" />
+                    <Input id="password" type="password" placeholder="New password" className="bg-white/5 border-white/10 focus:border-purple-light" />
                   </div>
                   
                   <div className="space-y-2">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
-                    <Input id="confirm-password" type="password" placeholder="Confirm new password" />
+                    <Input id="confirm-password" type="password" placeholder="Confirm new password" className="bg-white/5 border-white/10 focus:border-purple-light" />
                   </div>
                   
-                  <Button className="mt-4 bg-coffee-dark hover:bg-coffee-darker">
+                  <Button className="mt-4 bg-purple-medium hover:bg-purple-light">
                     Update Password
                   </Button>
                   
-                  <div className="border-t pt-4 mt-6">
+                  <div className="border-t border-white/10 pt-4 mt-6">
                     <Button variant="destructive">Delete Account</Button>
                   </div>
                 </div>

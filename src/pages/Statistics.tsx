@@ -16,50 +16,50 @@ const data = [
 const Statistics = () => {
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-coffee-darker mb-8">Coffee Statistics</h1>
+      <h1 className="text-3xl font-bold text-gradient mb-8">Coffee Statistics</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card>
+        <Card className="glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
-              <Coffee className="h-5 w-5 text-coffee-dark" />
+              <Coffee className="h-5 w-5 text-purple-light" />
               Total Coffees Ordered
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-coffee-darker">4,567</p>
+            <p className="text-3xl font-bold text-gradient">4,567</p>
             <p className="text-sm text-muted-foreground">+12% from last month</p>
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
-              <User className="h-5 w-5 text-coffee-dark" />
+              <User className="h-5 w-5 text-purple-light" />
               Average Daily Users
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-coffee-darker">128</p>
+            <p className="text-3xl font-bold text-gradient">128</p>
             <p className="text-sm text-muted-foreground">+5% from last month</p>
           </CardContent>
         </Card>
         
-        <Card>
+        <Card className="glass-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
-              <ChartBar className="h-5 w-5 text-coffee-dark" />
+              <ChartBar className="h-5 w-5 text-purple-light" />
               Most Popular Time
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-coffee-darker">8-9 AM</p>
+            <p className="text-3xl font-bold text-gradient">8-9 AM</p>
             <p className="text-sm text-muted-foreground">Morning peak hours</p>
           </CardContent>
         </Card>
       </div>
       
-      <Card className="mb-8">
+      <Card className="mb-8 glass-card">
         <CardHeader>
           <CardTitle>Most Ordered Coffee Types</CardTitle>
         </CardHeader>
@@ -67,11 +67,17 @@ const Statistics = () => {
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="orders" fill="#8D7B68" />
+                <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+                <XAxis dataKey="name" stroke="#9b87f5" />
+                <YAxis stroke="#9b87f5" />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#1A1F2C', 
+                    borderColor: '#9b87f5',
+                    color: '#fff' 
+                  }} 
+                />
+                <Bar dataKey="orders" fill="#9b87f5" />
               </BarChart>
             </ResponsiveContainer>
           </div>

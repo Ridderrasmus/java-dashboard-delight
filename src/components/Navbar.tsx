@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { User, Coffee, ChartBar, Edit } from 'lucide-react';
+import { User, Coffee, LogIn } from 'lucide-react';
 
 const Navbar = () => {
   return (
@@ -31,8 +31,11 @@ const Navbar = () => {
               <User className="h-5 w-5 text-purple-light" />
             </Link>
           </Button>
-          <Button className="bg-purple-medium hover:bg-purple-light text-white">
-            Login
+          <Button className="bg-purple-medium hover:bg-purple-light text-white" asChild>
+            <Link to="/auth">
+              <LogIn className="mr-2 h-4 w-4" />
+              Login
+            </Link>
           </Button>
         </div>
       </div>

@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Statistics from "./pages/Statistics";
 import CreateRecipe from "./pages/CreateRecipe";
 import Account from "./pages/Account";
+import Auth from "./pages/Auth";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -25,7 +26,7 @@ const App = () => (
           <Route path="/statistics" element={
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-grow pt-24"> {/* Added padding-top here */}
+              <main className="flex-grow pt-24">
                 <Statistics />
               </main>
               <Footer />
@@ -34,7 +35,7 @@ const App = () => (
           <Route path="/create-recipe" element={
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-grow pt-24"> {/* Added padding-top here */}
+              <main className="flex-grow pt-24">
                 <CreateRecipe />
               </main>
               <Footer />
@@ -43,12 +44,13 @@ const App = () => (
           <Route path="/account" element={
             <div className="min-h-screen flex flex-col">
               <Navbar />
-              <main className="flex-grow pt-24"> {/* Added padding-top here */}
+              <main className="flex-grow pt-24">
                 <Account />
               </main>
               <Footer />
             </div>
           } />
+          <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

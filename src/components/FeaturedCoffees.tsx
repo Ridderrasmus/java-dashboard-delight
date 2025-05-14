@@ -28,7 +28,7 @@ const FeaturedCoffees = () => {
 
   useEffect(() => {
     const api = new CoffeeApi();
-    api.get("/api/Coffee/Index").then((data: any[]) => {
+    api.get("/api/Recipe/Index").then((data: any[]) => {
       setCoffees(
         data.map((coffee: any) => ({
           id: coffee.id,

@@ -13,7 +13,6 @@ export class CoffeeApi {
     let response = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "GET",
       headers,
-      credentials: "include", // include cookies for auth if needed
     });
     if (response.status === 401 && token && typeof window !== "undefined") {
       // Try to refresh token
@@ -25,7 +24,6 @@ export class CoffeeApi {
           response = await fetch(`${this.baseUrl}${endpoint}`, {
             method: "GET",
             headers,
-            credentials: "include",
           });
         }
       }
@@ -45,7 +43,6 @@ export class CoffeeApi {
     let response = await fetch(`${this.baseUrl}${endpoint}`, {
       method: "POST",
       headers,
-      credentials: "include",
       body: JSON.stringify(data),
     });
     if (response.status === 401 && token && typeof window !== "undefined") {
@@ -59,7 +56,6 @@ export class CoffeeApi {
           response = await fetch(`${this.baseUrl}${endpoint}`, {
             method: "POST",
             headers,
-            credentials: "include",
             body: JSON.stringify(data),
           });
         }
@@ -80,7 +76,6 @@ export class CoffeeApi {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      credentials: "include",
       body: JSON.stringify(refreshToken),
     });
     if (!response.ok) return false;

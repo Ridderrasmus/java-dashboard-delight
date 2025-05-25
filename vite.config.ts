@@ -13,6 +13,14 @@ export default defineConfig(({ mode }) => {
   server: {
     host: "::",
     port: parseInt(env.VITE_PORT),
+    proxy: {
+      '/api': {
+        target: process.env.services__apiservice__https__0 ||
+          process.env.services__apiservice__http__0,
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   },
   plugins: [
     react(),

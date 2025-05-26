@@ -3,15 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Coffee } from "lucide-react";
 import { CoffeeApi } from "@/apis/CoffeeApi";
 
-const RECENT_ORDERS = [
-  {
-    id: 1,
-    name: "Vanilla Latte",
-    date: "Today, 8:45 AM",
-    status: "Completed",
-  },
-];
-
 const RecentOrders = () => {
   const [orders, setOrders] = useState<
     { id: number; name: string; date: string; status: string }[]
@@ -24,7 +15,9 @@ const RecentOrders = () => {
         data.map((order: any) => ({
           id: order.id,
           name: order.recipe.name,
-          date: new Date(order.id).toLocaleString(), // Placeholder for actual date
+          date: new Date(order.orderDate).toLocaleString("da-DK", {
+            timeZoneName: "short",
+          }),
           status: order.hasBeenServed ? "Completed" : "Pending",
         }))
       );

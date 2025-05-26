@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,14 +40,6 @@ const Order = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-  // Redirect to auth if not logged in
-  useEffect(() => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-  }, [user, navigate]);
-
   // Fetch recipes from API
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -64,12 +55,17 @@ const Order = () => {
       }
     };
 
-    if (user) {
-      fetchRecipes();
-    }
+    fetchRecipes();
   }, [user]);
 
   const handleOrderClick = (recipe: Recipe) => {
+    // Check if user is logged in
+    if (!user || !accessToken) {
+      toast.error("You must be logged in to place an order.");
+      navigate("/auth");
+      return;
+    }
+
     setSelectedRecipe(recipe);
     setShowConfirmDialog(true);
   };
@@ -87,7 +83,7 @@ const Order = () => {
         },
         accessToken
       );
-      
+
       toast.success(`Order placed for ${selectedRecipe.name}!`);
       setShowConfirmDialog(false);
       setSelectedRecipe(null);
@@ -98,10 +94,6 @@ const Order = () => {
       setIsPlacingOrder(false);
     }
   };
-
-  if (!user) {
-    return null; // Will redirect to auth
-  }
 
   if (loading) {
     return (
@@ -134,7 +126,10 @@ const Order = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recipes.map((recipe) => (
-              <Card key={recipe.id} className="glass-card hover:shadow-lg transition-all duration-300">
+              <Card
+                key={recipe.id}
+                className="glass-card hover:shadow-lg transition-all duration-300"
+              >
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg flex items-center gap-2">
                     <Coffee size={18} className="text-purple-light" />
@@ -143,7 +138,9 @@ const Order = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {recipe.description && (
-                    <p className="text-sm text-gray-400">{recipe.description}</p>
+                    <p className="text-sm text-gray-400">
+                      {recipe.description}
+                    </p>
                   )}
                   <Button
                     onClick={() => handleOrderClick(recipe)}
@@ -159,7 +156,10 @@ const Order = () => {
         )}
 
         {/* Order Confirmation Dialog */}
-        <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <AlertDialog
+          open={showConfirmDialog}
+          onOpenChange={setShowConfirmDialog}
+        >
           <AlertDialogContent className="glass-card">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-gradient">
@@ -170,7 +170,7 @@ const Order = () => {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel 
+              <AlertDialogCancel
                 onClick={() => setShowConfirmDialog(false)}
                 className="border-gray-600 text-gray-300 hover:bg-gray-800"
               >

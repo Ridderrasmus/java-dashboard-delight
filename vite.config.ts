@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
   {
   server: {
     host: "::",
-    port: 8080,
+    port: parseInt(env.VITE_PORT) || 8080,
     proxy: {
       '/api': {
         target: process.env.services__apiservice__https__0 ||

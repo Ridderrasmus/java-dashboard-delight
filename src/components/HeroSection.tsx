@@ -1,8 +1,7 @@
-
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Coffee, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Coffee, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -16,15 +15,27 @@ const HeroSection = () => {
             Just One Click Away
           </h1>
           <p className="text-lg mb-8 text-gray-300 opacity-90">
-            Discover and order your favorite coffee recipes, create your own blends,
-            and track your coffee preferences with our smart dashboard.
+            Discover and order your favorite coffee recipes, create your own
+            blends, and track your coffee preferences with our smart dashboard.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Button size="lg" className="bg-purple-light hover:bg-purple-medium text-white flex items-center gap-2 animate-glow">
-              <Coffee size={18} />
-              Order Now
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="bg-purple-light hover:bg-purple-medium text-white flex items-center gap-2 animate-glow"
+            >
+              <Link to="/order">
+                <Coffee size={18} />
+                Order Now
+              </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="border-white/20 text-white hover:bg-white/10 flex items-center gap-2">
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="border-white/20 text-white hover:bg-white/10 flex items-center gap-2"
+            >
               <Link to="/create-recipe">
                 Create Your Own <ChevronRight size={18} />
               </Link>

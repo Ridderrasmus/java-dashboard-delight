@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import CoffeeCard from "./CoffeeCard";
-import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { CoffeeApi } from "@/apis/CoffeeApi";
+import { Link } from "react-router-dom";
 
 const IMAGES = [
   "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=500&auto=format&fit=crop",
@@ -28,17 +28,31 @@ const FeaturedCoffees = () => {
 
   useEffect(() => {
     const api = new CoffeeApi();
-    api.get("/api/Recipe/Index").then((data: any[]) => {
-      setCoffees(
-        data.map((coffee: any) => ({
-          id: coffee.id,
-          name: coffee.name,
-          description: `A ${coffee.name} coffee with a unique blend of flavors.`,
-          imageUrl: IMAGES[Math.floor(Math.random() * IMAGES.length)],
-          timesOrdered: Math.floor(Math.random() * 1000),
-        }))
+    const fetchCoffees = async () => {
+      const data = await api.get<any[]>("/api/Recipe/Index");
+      const coffeesData = await Promise.all(
+        data.map(async (coffee: any) => {
+          let timesOrdered = 0;
+          try {
+            const resp = await api.get<{ totalNumberOfUses: number }>(
+              `/api/Statistics/Details/${coffee.id}`
+            );
+            timesOrdered = resp.totalNumberOfUses || 0;
+          } catch (e) {
+            // Optionally handle error
+          }
+          return {
+            id: coffee.id,
+            name: coffee.name,
+            description: `A ${coffee.name} coffee with a unique blend of flavors.`,
+            imageUrl: IMAGES[Math.floor(Math.random() * IMAGES.length)],
+            timesOrdered,
+          };
+        })
       );
-    });
+      setCoffees(coffeesData);
+    };
+    fetchCoffees();
   }, []);
 
   return (
@@ -48,12 +62,12 @@ const FeaturedCoffees = () => {
           <h2 className="text-2xl font-bold text-gradient">
             Most Popular Coffees
           </h2>
-          <Button
-            variant="ghost"
+          <Link
+            to="/orders"
             className="flex items-center text-gray-300 hover:text-purple-light gap-1"
           >
             See All <ChevronRight size={16} />
-          </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,6 +10,7 @@ import Statistics from "./pages/Statistics";
 import CreateRecipe from "./pages/CreateRecipe";
 import Account from "./pages/Account";
 import Auth from "./pages/Auth";
+import Order from "./pages/Order";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { AuthProvider } from "@/lib/auth";
@@ -43,6 +45,18 @@ const App = () => (
                   <Navbar />
                   <main className="flex-grow pt-24">
                     <CreateRecipe />
+                  </main>
+                  <Footer />
+                </div>
+              }
+            />
+            <Route
+              path="/order"
+              element={
+                <div className="min-h-screen flex flex-col">
+                  <Navbar />
+                  <main className="flex-grow pt-24">
+                    <Order />
                   </main>
                   <Footer />
                 </div>

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,12 @@ const Navbar = () => {
             className="text-gray-300 hover:text-purple-light transition-colors"
           >
             Home
+          </Link>
+          <Link
+            to="/order"
+            className="text-gray-300 hover:text-purple-light transition-colors"
+          >
+            Order
           </Link>
           <Link
             to="/statistics"

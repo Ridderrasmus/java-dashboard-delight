@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Coffee } from "lucide-react";
 import { CoffeeApi } from "@/apis/CoffeeApi";
+import OrderCard from "./OrderCard";
 
 const RecentOrders = () => {
   const [orders, setOrders] = useState<
-    { id: number; name: string; date: string; status: string }[]
+    { id: number; name: string; date: string; status: number }[]
   >([]);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const RecentOrders = () => {
           date: new Date(order.orderDate).toLocaleString("da-DK", {
             timeZoneName: "short",
           }),
-          status: order.hasBeenServed ? "Completed" : "Pending",
+          status: order.hasBeenServed,
         }))
       );
     });
@@ -33,22 +34,7 @@ const RecentOrders = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {orders.map((order) => (
-            <Card key={order.id} className="animate-slide-in glass-card">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg flex justify-between">
-                  <span className="flex items-center gap-2">
-                    <Coffee size={18} className="text-purple-light" />
-                    {order.name}
-                  </span>
-                  <span className="text-sm bg-purple-light/10 border border-purple-light/20 text-purple-light px-2 py-0.5 rounded-full">
-                    {order.status}
-                  </span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-400">{order.date}</p>
-              </CardContent>
-            </Card>
+            <OrderCard key={order.id} order={order} />
           ))}
         </div>
       </div>

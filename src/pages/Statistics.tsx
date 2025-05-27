@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,10 +23,20 @@ interface CoffeeData {
   totalNumberOfUses: number;
 }
 
+interface Ingredient {
+  name: string;
+}
+
+interface Measurement {
+  time: Date;
+  ingredient: Ingredient;
+  value: number;
+}
+
 interface TimeSeriesData {
-  date: string;
-  orders: number;
-  users: number;
+  date: Date; // ISO date string
+  coffee: number;
+  water: number;
 }
 
 const Statistics = () => {
@@ -85,20 +94,54 @@ const Statistics = () => {
       // Get time series data (mock data for now since API endpoint doesn't exist)
       try {
         // This would be replaced with actual API call when endpoint is available
-        // const api = new CoffeeApi();
-        // const timeData = await api.get<TimeSeriesData[]>("/api/Statistics/TimeSeries");
-        
+        const api = new CoffeeApi();
+        const Measurements = await api.get<Measurement[]>(
+          "/api/Measurements/Index"
+        );
+
+        // Process the measurements to create time series data
+        const timeSeriesMap: { [key: string]: TimeSeriesData } = {};
+        Measurements.forEach((measurement) => {
+          const dateKey = new Date(measurement.time)
+            .toISOString()
+            .split("T")[0]; // Use date part only
+          if (!timeSeriesMap[dateKey]) {
+            timeSeriesMap[dateKey] = {
+              date: new Date(dateKey),
+              coffee: 0,
+              water: 0,
+            };
+          }
+          timeSeriesMap[dateKey].coffee += measurement.ingredient.name
+            .toLowerCase()
+            .includes("coffee")
+            ? measurement.value
+            : 0;
+          timeSeriesMap[dateKey].water += measurement.ingredient.name
+            .toLowerCase()
+            .includes("water")
+            ? measurement.value
+            : 0;
+        });
+
+        const apiTimeSeriesData = Object.values(timeSeriesMap).sort(
+          (a, b) => a.date.getTime() - b.date.getTime()
+        );
+
         // Mock data for demonstration
         const mockTimeSeriesData: TimeSeriesData[] = [
-          { date: "2024-01-01", orders: 45, users: 12 },
-          { date: "2024-01-02", orders: 52, users: 15 },
-          { date: "2024-01-03", orders: 38, users: 10 },
-          { date: "2024-01-04", orders: 61, users: 18 },
-          { date: "2024-01-05", orders: 55, users: 16 },
-          { date: "2024-01-06", orders: 67, users: 20 },
-          { date: "2024-01-07", orders: 43, users: 13 },
+          { date: new Date("2024-01-01"), coffee: 45, water: 12 },
+          { date: new Date("2024-01-02"), coffee: 52, water: 15 },
+          { date: new Date("2024-01-03"), coffee: 38, water: 10 },
+          { date: new Date("2024-01-04"), coffee: 61, water: 18 },
+          { date: new Date("2024-01-05"), coffee: 55, water: 16 },
+          { date: new Date("2024-01-06"), coffee: 67, water: 20 },
+          { date: new Date("2024-01-07"), coffee: 43, water: 13 },
         ];
-        setTimeSeriesData(mockTimeSeriesData);
+
+        console.log("Processed Time Series Map:", apiTimeSeriesData);
+
+        setTimeSeriesData(apiTimeSeriesData);
       } catch (error) {
         console.error("Failed to fetch time series data:", error);
       }
@@ -176,10 +219,10 @@ const Statistics = () => {
               </TabsTrigger>
               <TabsTrigger value="trends" className="flex items-center gap-2">
                 <TrendingUp className="h-4 w-4" />
-                Trends Over Time
+                Supplies Over Time
               </TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="popular" className="mt-6">
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
@@ -202,7 +245,7 @@ const Statistics = () => {
                 </ResponsiveContainer>
               </div>
             </TabsContent>
-            
+
             <TabsContent value="trends" className="mt-6">
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
@@ -211,10 +254,12 @@ const Statistics = () => {
                     margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                    <XAxis 
-                      dataKey="date" 
+                    <XAxis
+                      dataKey="date"
                       stroke="#9b87f5"
-                      tickFormatter={(value) => new Date(value).toLocaleDateString()}
+                      tickFormatter={(value) =>
+                        new Date(value).toLocaleDateString()
+                      }
                     />
                     <YAxis stroke="#9b87f5" />
                     <Tooltip
@@ -223,11 +268,13 @@ const Statistics = () => {
                         borderColor: "#9b87f5",
                         color: "#fff",
                       }}
-                      labelFormatter={(value) => new Date(value).toLocaleDateString()}
+                      labelFormatter={(value) =>
+                        new Date(value).toLocaleDateString()
+                      }
                     />
                     <Area
                       type="monotone"
-                      dataKey="orders"
+                      dataKey="coffee"
                       stackId="1"
                       stroke="#9b87f5"
                       fill="#9b87f5"
@@ -235,7 +282,7 @@ const Statistics = () => {
                     />
                     <Area
                       type="monotone"
-                      dataKey="users"
+                      dataKey="water"
                       stackId="1"
                       stroke="#6366f1"
                       fill="#6366f1"

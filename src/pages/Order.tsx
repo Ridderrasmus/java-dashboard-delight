@@ -24,6 +24,7 @@ import { Coffee, ShoppingCart } from "lucide-react";
 import { CoffeeApi } from "@/apis/CoffeeApi";
 import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
+import CoffeeCard from "@/components/CoffeeCard";
 
 interface Recipe {
   id: number;
@@ -36,9 +37,6 @@ const Order = () => {
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
   // Fetch recipes from API
   useEffect(() => {
@@ -57,43 +55,6 @@ const Order = () => {
 
     fetchRecipes();
   }, [user]);
-
-  const handleOrderClick = (recipe: Recipe) => {
-    // Check if user is logged in
-    if (!user || !accessToken) {
-      toast.error("You must be logged in to place an order.");
-      navigate("/auth");
-      return;
-    }
-
-    setSelectedRecipe(recipe);
-    setShowConfirmDialog(true);
-  };
-
-  const handleConfirmOrder = async () => {
-    if (!selectedRecipe || !accessToken) return;
-
-    setIsPlacingOrder(true);
-    try {
-      const api = new CoffeeApi();
-      await api.post(
-        "/api/Orders/Create",
-        {
-          recipeId: selectedRecipe.id,
-        },
-        accessToken
-      );
-
-      toast.success(`Order placed for ${selectedRecipe.name}!`);
-      setShowConfirmDialog(false);
-      setSelectedRecipe(null);
-    } catch (error) {
-      console.error("Failed to place order:", error);
-      toast.error("Failed to place order. Please try again.");
-    } finally {
-      setIsPlacingOrder(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -126,66 +87,15 @@ const Order = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recipes.map((recipe) => (
-              <Card
+              <CoffeeCard
                 key={recipe.id}
-                className="glass-card hover:shadow-lg transition-all duration-300"
-              >
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Coffee size={18} className="text-purple-light" />
-                    {recipe.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {recipe.description && (
-                    <p className="text-sm text-gray-400">
-                      {recipe.description}
-                    </p>
-                  )}
-                  <Button
-                    onClick={() => handleOrderClick(recipe)}
-                    className="w-full bg-purple-medium hover:bg-purple-light"
-                  >
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Order Now
-                  </Button>
-                </CardContent>
-              </Card>
+                id={recipe.id}
+                name={recipe.name}
+                description={recipe.description || ""}
+              />
             ))}
           </div>
         )}
-
-        {/* Order Confirmation Dialog */}
-        <AlertDialog
-          open={showConfirmDialog}
-          onOpenChange={setShowConfirmDialog}
-        >
-          <AlertDialogContent className="glass-card">
-            <AlertDialogHeader>
-              <AlertDialogTitle className="text-gradient">
-                Confirm Your Order
-              </AlertDialogTitle>
-              <AlertDialogDescription className="text-gray-300">
-                Are you sure you want to order "{selectedRecipe?.name}"?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel
-                onClick={() => setShowConfirmDialog(false)}
-                className="border-gray-600 text-gray-300 hover:bg-gray-800"
-              >
-                Cancel
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={handleConfirmOrder}
-                disabled={isPlacingOrder}
-                className="bg-purple-medium hover:bg-purple-light"
-              >
-                {isPlacingOrder ? "Placing Order..." : "Confirm Order"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </div>
     </div>
   );

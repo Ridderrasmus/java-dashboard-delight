@@ -4,13 +4,6 @@ import { ChevronRight } from "lucide-react";
 import { CoffeeApi } from "@/apis/CoffeeApi";
 import { Link } from "react-router-dom";
 
-const IMAGES = [
-  "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=500&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1561047029-3000c68339ca?q=80&w=500&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1485808191679-5f86510681a2?q=80&w=500&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=500&auto=format&fit=crop",
-];
-
 const FEATURED_COFFEES = [
   {
     id: 1,
@@ -18,8 +11,6 @@ const FEATURED_COFFEES = [
     description:
       "Rich and intense with a perfect golden crema. The cornerstone of all coffee drinks.",
     timesOrdered: 1243,
-    imageUrl:
-      "https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=500&auto=format&fit=crop",
   },
 ];
 
@@ -45,7 +36,6 @@ const FeaturedCoffees = () => {
             id: coffee.id,
             name: coffee.name,
             description: `A ${coffee.name} coffee with a unique blend of flavors.`,
-            imageUrl: IMAGES[Math.floor(Math.random() * IMAGES.length)],
             timesOrdered,
           };
         })
@@ -63,7 +53,7 @@ const FeaturedCoffees = () => {
             Most Popular Coffees
           </h2>
           <Link
-            to="/orders"
+            to="/order"
             className="flex items-center text-gray-300 hover:text-purple-light gap-1"
           >
             See All <ChevronRight size={16} />
@@ -74,10 +64,10 @@ const FeaturedCoffees = () => {
           {coffees.map((coffee) => (
             <CoffeeCard
               key={coffee.id}
+              id={coffee.id}
               name={coffee.name}
               description={coffee.description}
               timesOrdered={coffee.timesOrdered}
-              imageUrl={coffee.imageUrl}
             />
           ))}
         </div>

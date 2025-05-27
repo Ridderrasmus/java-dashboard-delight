@@ -14,34 +14,40 @@ import { Switch } from "@/components/ui/switch";
 import { Coffee } from "lucide-react";
 import { CoffeeApi } from "@/apis/CoffeeApi";
 import { useAuth } from "@/lib/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const CreateRecipe = () => {
   const { user, accessToken } = useAuth();
+  const navigate = useNavigate();
   const [recipeName, setRecipeName] = useState("");
   const [coffeeStrength, setCoffeeStrength] = useState([50]);
   const [waterAmount, setWaterAmount] = useState([30]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would handle the recipe creation
-    const api = new CoffeeApi();
-    api.post(
-      "/api/Recipe/Create",
-      {
-        name: recipeName,
-        ingredients: {
-          1: coffeeStrength[0],
-          2: waterAmount[0],
+    setLoading(true);
+    try {
+      const api = new CoffeeApi();
+      await api.post(
+        "/api/Recipe/Create",
+        {
+          name: recipeName,
+          ingredients: {
+            1: coffeeStrength[0],
+            3: waterAmount[0],
+          },
         },
-      },
-      accessToken
-    );
-    console.log({
-      recipeName,
-      coffeeStrength: coffeeStrength[0],
-      waterAmount: waterAmount[0],
-    });
-    alert("Recipe saved!");
+        accessToken
+      );
+      toast.success("Recipe created successfully!");
+      setTimeout(() => navigate("/"), 1200);
+    } catch (error) {
+      toast.error("Failed to create recipe. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -104,15 +110,17 @@ const CreateRecipe = () => {
                 variant="outline"
                 type="button"
                 className="border-white/10 hover:bg-white/5"
+                onClick={() => navigate("/")}
+                disabled={loading}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
                 className="bg-purple-medium hover:bg-purple-light"
-                disabled={!recipeName}
+                disabled={!recipeName || loading}
               >
-                Save Recipe
+                {loading ? "Saving..." : "Save Recipe"}
               </Button>
             </CardFooter>
           </form>

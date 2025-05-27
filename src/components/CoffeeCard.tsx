@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Card,
@@ -108,19 +109,19 @@ const CoffeeCard = ({
         </CardFooter>
       </Card>
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-        <AlertDialogContent className="glass-card">
+        <AlertDialogContent className="bg-gray-900/95 backdrop-blur-lg border border-purple-light/20 shadow-2xl">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-gradient">
+            <AlertDialogTitle className="text-gradient text-xl">
               Confirm Your Order
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-gray-300">
+            <AlertDialogDescription className="text-gray-300 text-base">
               Are you sure you want to order "{name}"?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel
               onClick={() => setShowConfirmDialog(false)}
-              className="border-gray-600 text-gray-300 hover:bg-gray-800"
+              className="border-gray-600 text-gray-300 hover:bg-gray-800 bg-gray-800/50"
             >
               Cancel
             </AlertDialogCancel>

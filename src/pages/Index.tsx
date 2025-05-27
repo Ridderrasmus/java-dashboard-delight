@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import FeaturedCoffees from '@/components/FeaturedCoffees';
 import RecentOrders from '@/components/RecentOrders';
+import MachineLevels from '@/components/MachineLevels';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -12,6 +13,7 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow pt-24"> {/* Added padding-top to account for fixed navbar */}
         <HeroSection />
+        <MachineLevels />
         <FeaturedCoffees />
         <RecentOrders />
       </main>

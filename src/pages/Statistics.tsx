@@ -34,7 +34,7 @@ interface Measurement {
 }
 
 interface TimeSeriesData {
-  date: Date; // ISO date string
+  time: Date; // ISO date string
   coffee: number;
   water: number;
 }
@@ -91,57 +91,13 @@ const Statistics = () => {
         console.error("Failed to fetch most popular time:", error);
       }
 
-      // Get time series data (mock data for now since API endpoint doesn't exist)
       try {
-        // This would be replaced with actual API call when endpoint is available
         const api = new CoffeeApi();
-        const Measurements = await api.get<Measurement[]>(
-          "/api/Measurements/Index"
+        const Measurements = await api.get<TimeSeriesData[]>(
+          "/api/Measurements/TimeSeriesData?period=12h&interval=30m"
         );
 
-        // Process the measurements to create time series data
-        const timeSeriesMap: { [key: string]: TimeSeriesData } = {};
-        Measurements.forEach((measurement) => {
-          const dateKey = new Date(measurement.time)
-            .toISOString()
-            .split("T")[0]; // Use date part only
-          if (!timeSeriesMap[dateKey]) {
-            timeSeriesMap[dateKey] = {
-              date: new Date(dateKey),
-              coffee: 0,
-              water: 0,
-            };
-          }
-          timeSeriesMap[dateKey].coffee += measurement.ingredient.name
-            .toLowerCase()
-            .includes("coffee")
-            ? measurement.value
-            : 0;
-          timeSeriesMap[dateKey].water += measurement.ingredient.name
-            .toLowerCase()
-            .includes("water")
-            ? measurement.value
-            : 0;
-        });
-
-        const apiTimeSeriesData = Object.values(timeSeriesMap).sort(
-          (a, b) => a.date.getTime() - b.date.getTime()
-        );
-
-        // Mock data for demonstration
-        const mockTimeSeriesData: TimeSeriesData[] = [
-          { date: new Date("2024-01-01"), coffee: 45, water: 12 },
-          { date: new Date("2024-01-02"), coffee: 52, water: 15 },
-          { date: new Date("2024-01-03"), coffee: 38, water: 10 },
-          { date: new Date("2024-01-04"), coffee: 61, water: 18 },
-          { date: new Date("2024-01-05"), coffee: 55, water: 16 },
-          { date: new Date("2024-01-06"), coffee: 67, water: 20 },
-          { date: new Date("2024-01-07"), coffee: 43, water: 13 },
-        ];
-
-        console.log("Processed Time Series Map:", apiTimeSeriesData);
-
-        setTimeSeriesData(apiTimeSeriesData);
+        setTimeSeriesData(Measurements);
       } catch (error) {
         console.error("Failed to fetch time series data:", error);
       }
@@ -255,10 +211,10 @@ const Statistics = () => {
                   >
                     <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
                     <XAxis
-                      dataKey="date"
+                      dataKey="time"
                       stroke="#9b87f5"
                       tickFormatter={(value) =>
-                        new Date(value).toLocaleDateString()
+                        new Date(value).toLocaleTimeString()
                       }
                     />
                     <YAxis stroke="#9b87f5" />

@@ -3,7 +3,7 @@
 
 export class CoffeeApi {
   // Use Vite's import.meta.env for environment variables
-  private baseUrl: string = import.meta.env.VITE_REACT_APP_COFFEE_API; // Ensure this is set in your .env file
+  private baseUrl: string = import.meta.env.VITE_REACT_APP_COFFEE_API;
 
   async get<T>(endpoint: string, token?: string): Promise<T> {
     const headers: Record<string, string> = {
